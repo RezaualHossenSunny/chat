@@ -84,6 +84,10 @@ uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
     });
 });
    }
+   const handleEmoji=(emoji)=>{
+      console.log('ohjnrgjnr',emoji.emoji);
+      setmsg(msg+emoji.emoji)
+   }
    return (
       <>
          <div className="w-full  rounded-custom shadow-homeCardShadow pl-12 pr-7 ">
@@ -168,12 +172,12 @@ uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
                 {
             shoEmoji &&
            <div className='absolute top-[450px] '>
-             <EmojiPicker/>
+             <EmojiPicker onEmojiClick={(emoji)=> handleEmoji(emoji)}/>
            </div>
          }
               <div className='flex relative'>
        
-            <div className='absolute top-[20px] right-[180px] text-3xl text-yellow-500'> 
+            <div className='absolute top-[20px] right-[180px] text-3xl text-primary'> 
                <MdEmojiEmotions  onClick={()=> setShowwnoj(!shoEmoji)}/>
             </div>
               <label>
