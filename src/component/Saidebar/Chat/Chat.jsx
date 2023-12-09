@@ -13,9 +13,12 @@ import { getDatabase, onValue, push, ref, set } from 'firebase/database';
 import moment from 'moment';
 import { getDownloadURL, getStorage, ref as refs, uploadBytes } from "firebase/storage";
 import { FcGallery } from "react-icons/fc";
+import EmojiPicker from 'emoji-picker-react';
+import { MdEmojiEmotions } from "react-icons/md";
+
 const Chat = () => {
    const storage = getStorage();
-
+   const[shoEmoji,setShowwnoj]=useState(false);
    const data=useSelector(state=>state.userLoginInfo.userInfo);
  const [msg,setmsg]=useState('');
  const db = getDatabase();
@@ -38,6 +41,7 @@ console.log(activeChat);
       }else{
          console.log('group');
       }
+     
    }
    const[singlemsg,setsinglemsg]=useState([]);
    useEffect(()=>{
@@ -58,7 +62,7 @@ console.log(activeChat);
       })
     setsinglemsg(arr)
       });
-   },[singlemsg])
+   },[activeChat])
    
 
    console.log(singlemsg,'jtgfjgjtgeetjgte');
@@ -159,14 +163,25 @@ uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
                   
                
                </div>
+       
             <div className='py-5 border-t-2 border-gray-500 rounded-lg '>
-          
+                {
+            shoEmoji &&
+           <div className='absolute top-[450px] '>
+             <EmojiPicker/>
+           </div>
+         }
               <div className='flex relative'>
+       
+            <div className='absolute top-[20px] right-[180px] text-3xl text-yellow-500'> 
+               <MdEmojiEmotions  onClick={()=> setShowwnoj(!shoEmoji)}/>
+            </div>
               <label>
                <input onChange={handleImg} type='file' className='hidden '/>
                <FcGallery  className='absolute top-[20px] right-[140px] text-3xl'/>
             </label>
               <input onChange={(e)=> setmsg(e.target.value)} className='bg-[#C0C0C0] w-[650px] p-5 focus:outline-0 rounded-md border-orange-200 font-serif font-bold ' type='text'></input>
+             
               <div>
               <button onClick={hadleButton} className='p-5 text-3xl text-primary rounded-xl bg-slate-300 ml-1' ><BsFillSendPlusFill  /></button>
               </div>
