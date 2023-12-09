@@ -36,7 +36,8 @@ console.log(activeChat);
             whoRecivename:activeChat.active.name,
             date:`${new Date().getFullYear()	} - ${new Date().getMonth()+1}- ${new Date().getDate()} - ${new Date().getDay()} - ${new Date().getHours()} - ${new Date().getMinutes()} - ${new Date().getSeconds()} `,
 
-         })
+         });
+         
 
       }else{
          console.log('group');
@@ -88,6 +89,19 @@ uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
       console.log('ohjnrgjnr',emoji.emoji);
       setmsg(msg+emoji.emoji)
    }
+   const handlePress=((event)=>{
+      if(event.key == "Enter"){
+         set(push(ref(db,'activechat/')),{
+            msg:msg,
+            whosendid:data.uid,
+            whoSendName:data.displayName,
+            whoReciveId:activeChat.active.id,
+            whoRecivename:activeChat.active.name,
+            date:`${new Date().getFullYear()	} - ${new Date().getMonth()+1}- ${new Date().getDate()} - ${new Date().getDay()} - ${new Date().getHours()} - ${new Date().getMinutes()} - ${new Date().getSeconds()} `,
+
+         });
+      }
+   })
    return (
       <>
          <div className="w-full  rounded-custom shadow-homeCardShadow pl-12 pr-7 ">
@@ -184,7 +198,7 @@ uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
                <input onChange={handleImg} type='file' className='hidden '/>
                <FcGallery  className='absolute top-[20px] right-[140px] text-3xl'/>
             </label>
-              <input onChange={(e)=> setmsg(e.target.value)} className='bg-[#C0C0C0] w-[650px] p-5 focus:outline-0 rounded-md border-orange-200 font-serif font-bold ' type='text'></input>
+              <input onKeyPress={handlePress}  onChange={(e)=> setmsg(e.target.value)}  className='bg-[#C0C0C0] w-[650px] p-5 focus:outline-0 rounded-md border-orange-200 font-serif font-bold ' type='text'></input>
              
               <div>
               <button onClick={hadleButton} className='p-5 text-3xl text-primary rounded-xl bg-slate-300 ml-1' ><BsFillSendPlusFill  /></button>
