@@ -198,7 +198,7 @@ uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
                <input onChange={handleImg} type='file' className='hidden '/>
                <FcGallery  className='absolute top-[20px] right-[140px] text-3xl'/>
             </label>
-              <input onKeyPress={handlePress}  onChange={(e)=> setmsg(e.target.value)}  className='bg-[#C0C0C0] w-[650px] p-5 focus:outline-0 rounded-md border-orange-200 font-serif font-bold ' type='text'></input>
+              <input onKeyPress={handlePress}  onChange={(e)=> setmsg(e.target.value)} value={msg} className='bg-[#C0C0C0] w-[650px] p-5 focus:outline-0 rounded-md border-orange-200 font-serif font-bold ' type='text'></input>
              
               <div>
               <button onClick={hadleButton} className='p-5 text-3xl text-primary rounded-xl bg-slate-300 ml-1' ><BsFillSendPlusFill  /></button>
