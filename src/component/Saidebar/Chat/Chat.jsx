@@ -58,7 +58,7 @@ console.log(activeChat);
       })
     setsinglemsg(arr)
       });
-   },[])
+   },[singlemsg])
    
 
    console.log(singlemsg,'jtgfjgjtgeetjgte');
@@ -156,44 +156,7 @@ uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
                   </div> 
                   ))
                }
-                  {/* <div className="mt-5">
-                   <div className='relative'>
-                   <h4 className="bg-[#F1F1F1] py-[20px] px-[52px] inline-block font-pops font-bold">Hello...</h4>
-                     <IoTriangle className='absolute bottom-[-10px] left-0 text-[#F1F1F1] ' />
-                   </div>
-                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
-                  </div> */}
-              {/* recive messages */}
-                     {/* sender message */}
-              {/* <div className="mt-5 text-right p-[20px]">
-                   <div className='relative'>
-                   <h4 className="bg-primary py-[20px] px-[52px] text-white inline-block font-pops font-bold">Hello...</h4>
-                     <IoTriangle className='absolute bottom-[-10px] right-0 text-primary ' />
-                   </div>
-                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
-                  </div> */}
-              {/* sender message */}
-
-              {/* reiver img */}
-           
-              {/* sender img */}
-
-                      {/* reiver img */}
-                      {/* <div className="mt-5 text-right p-[20px]">
-                   <div className='p-3 bg-primary inline-block'> */}
-                 
-                    {/* <img src={img1} className='w-[250px]'></img> */}
-                    {/* <ModalImage
-                   small={img1}
-                  large={img1}
-                  className='w-60'
-                  />
-                   </div>
-                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
-                  </div> */}
-              {/*sender  img */}
                   
-               
                
                </div>
             <div className='py-5 border-t-2 border-gray-500 rounded-lg '>
