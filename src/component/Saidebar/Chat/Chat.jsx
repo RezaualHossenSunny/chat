@@ -104,6 +104,7 @@ uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
                {
                   singlemsg.map((item)=>(
                   item.whosendid== data.uid ?
+                  item.msg ?
                   <div className="mt-2 text-right p-[20px]">
                    <div className='relative'>
                    <h4 className="bg-primary py-[20px] px-[52px] text-white inline-block font-pops font-bold">{item.msg}.</h4>
@@ -112,13 +113,46 @@ uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
                      <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">{
                         moment(item.date,"YYYY-MM-DD HH:mm:ss").fromNow()
                      }</p>
-                  </div> :
+                  </div> 
+                  :
+
+                <div>
+                <div className="mt-5 text-right p-[20px]">
+                   <div className='p-3 bg-primary inline-block'>
+
+                    <ModalImage
+                   small={item.img}
+                  large={item.img}
+                  className='w-60'
+                  />
+                  
+                   </div>
+                   <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">{ moment(item.date,"YYYY-MM-DD HH:mm:ss").fromNow()}</p>
+                  </div>
+                </div>
+                  
+                  
+                  :
+                  item.msg ?
                   <div className="mt-2">
                    <div className='relative'>
                    <h4 className="bg-[#F1F1F1] py-[20px] px-[52px] inline-block font-pops font-bold">{item.msg}</h4>
                      <IoTriangle className='absolute bottom-[-10px] left-0 text-[#F1F1F1] ' />
                    </div>
                      <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">{   moment(item.date,"YYYY-MM-DD HH:mm:ss").fromNow()}</p>
+                  </div> 
+                  :
+                  <div className="mt-5">
+                   <div className='p-3 bg-[#F1F1F1] inline-block'>
+                 
+                 
+                    <ModalImage
+                   small={item.img}
+                  large={item.img}
+                  className='w-60'
+                  />
+                   </div>
+                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">{ moment(item.date,"YYYY-MM-DD HH:mm:ss").fromNow()}</p>
                   </div> 
                   ))
                }
@@ -141,18 +175,7 @@ uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
               {/* sender message */}
 
               {/* reiver img */}
-              {/* <div className="mt-5">
-                   <div className='p-3 bg-[#F1F1F1] inline-block'> */}
-                 
-                    {/* <img src={img1} className='w-[250px]'></img> */}
-                    {/* <ModalImage
-                   small={img1}
-                  large={img1}
-                  className='w-60'
-                  />
-                   </div>
-                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
-                  </div> */}
+           
               {/* sender img */}
 
                       {/* reiver img */}
