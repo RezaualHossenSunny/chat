@@ -10,8 +10,9 @@ import { BsFillSendPlusFill } from "react-icons/bs";
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react';
 import { getDatabase, onValue, push, ref, set } from 'firebase/database';
-
+import moment from 'moment';
 const Chat = () => {
+
    const data=useSelector(state=>state.userLoginInfo.userInfo);
  const [msg,setmsg]=useState('');
  const db = getDatabase();
@@ -88,14 +89,16 @@ console.log(activeChat);
                    <h4 className="bg-primary py-[20px] px-[52px] text-white inline-block font-pops font-bold">{item.msg}.</h4>
                      <IoTriangle className='absolute bottom-[-10px] right-0 text-primary ' />
                    </div>
-                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
+                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">{
+                        moment(item.date,"YYYY-MM-DD HH:mm:ss").fromNow()
+                     }</p>
                   </div> :
                   <div className="mt-2">
                    <div className='relative'>
                    <h4 className="bg-[#F1F1F1] py-[20px] px-[52px] inline-block font-pops font-bold">{item.msg}</h4>
                      <IoTriangle className='absolute bottom-[-10px] left-0 text-[#F1F1F1] ' />
                    </div>
-                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
+                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">{   moment(item.date,"YYYY-MM-DD HH:mm:ss").fromNow()}</p>
                   </div> 
                   ))
                }
