@@ -11,7 +11,10 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react';
 import { getDatabase, onValue, push, ref, set } from 'firebase/database';
 import moment from 'moment';
+import { getDownloadURL, getStorage, ref as refs, uploadBytes } from "firebase/storage";
+import { FcGallery } from "react-icons/fc";
 const Chat = () => {
+   const storage = getStorage();
 
    const data=useSelector(state=>state.userLoginInfo.userInfo);
  const [msg,setmsg]=useState('');
@@ -56,10 +59,27 @@ console.log(activeChat);
     setsinglemsg(arr)
       });
    },[])
+   
 
    console.log(singlemsg,'jtgfjgjtgeetjgte');
    
-   
+   const handleImg=(e)=>{
+
+const storageRef = refs(storage, 'some-child');
+
+uploadBytes(storageRef, e.target.files[0]).then((snapshot) => {
+   getDownloadURL(storageRef).then((downloadURL) => {
+      set(push(ref(db ,'/activechat')),{
+         img:downloadURL,
+         whosendid:data.uid,
+         whoSendName:data.displayName,
+         whoReciveId:activeChat.active.id,
+         whoRecivename:activeChat.active.name,
+         date:`${new Date().getFullYear()	} - ${new Date().getMonth()+1}- ${new Date().getDate()} - ${new Date().getDay()} - ${new Date().getHours()} - ${new Date().getMinutes()} - ${new Date().getSeconds()} `
+      })
+    });
+});
+   }
    return (
       <>
          <div className="w-full  rounded-custom shadow-homeCardShadow pl-12 pr-7 ">
@@ -153,8 +173,13 @@ console.log(activeChat);
                
                
                </div>
-            <div className='py-5 border-t-2 border-gray-500 rounded-lg'>
-              <div className='flex'>
+            <div className='py-5 border-t-2 border-gray-500 rounded-lg '>
+          
+              <div className='flex relative'>
+              <label>
+               <input onChange={handleImg} type='file' className='hidden '/>
+               <FcGallery  className='absolute top-[20px] right-[140px] text-3xl'/>
+            </label>
               <input onChange={(e)=> setmsg(e.target.value)} className='bg-[#C0C0C0] w-[650px] p-5 focus:outline-0 rounded-md border-orange-200 font-serif font-bold ' type='text'></input>
               <div>
               <button onClick={hadleButton} className='p-5 text-3xl text-primary rounded-xl bg-slate-300 ml-1' ><BsFillSendPlusFill  /></button>
