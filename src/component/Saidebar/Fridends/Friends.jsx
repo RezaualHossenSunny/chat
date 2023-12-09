@@ -56,13 +56,13 @@ const handleChat=(item)=>{
     if(item.reciverid == data.uid){
         dispach(active({
             status:'single',
-            id:item.senderkey,
+            id:item.senderid,
             name:item.sendername
         }))
     }else{
         dispach(active({
             status:'single',
-            id:item.reciverkey,
+            id:item.reciverid,
             name:item.recivername
         }))  
     }

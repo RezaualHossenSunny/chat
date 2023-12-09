@@ -8,23 +8,57 @@ import img1 from '../../../assets/pixel.jpg'
 import ModalImage from "react-modal-image";
 import { BsFillSendPlusFill } from "react-icons/bs";
 import { useSelector } from 'react-redux'
-import { useState } from 'react';
-import { getDatabase, ref, set } from 'firebase/database';
+import { useEffect, useState } from 'react';
+import { getDatabase, onValue, push, ref, set } from 'firebase/database';
+
 const Chat = () => {
-   const active= useSelector(state => state.activeChatSlice);
-   console.log(active);
-   const db=getDatabase()
-   const [msg,setMsg]=useState('')
-   const handleSendMsg=()=>{
-      console.log('okkk send');
-      if(active.active.status =='single'){
-       set(ref(db, 'activeChat/'),{
-         msg:msg
-       })
+   const data=useSelector(state=>state.userLoginInfo.userInfo);
+ const [msg,setmsg]=useState('');
+ const db = getDatabase();
+const activeChat=useSelector(state=> state.activeChatSlice);
+console.log(activeChat);
+ 
+   const hadleButton=()=>{
+      console.log('iam button');
+      if(activeChat.active.status =='single'){
+         set(push(ref(db,'activechat/')),{
+            msg:msg,
+            whosendid:data.uid,
+            whoSendName:data.displayName,
+            whoReciveId:activeChat.active.id,
+            whoRecivename:activeChat.active.name,
+            date:`${new Date().getFullYear()	} - ${new Date().getMonth()+1}- ${new Date().getDate()} - ${new Date().getDay()} - ${new Date().getHours()} - ${new Date().getMinutes()} - ${new Date().getSeconds()} `,
+
+         })
+
       }else{
          console.log('group');
       }
    }
+   const[singlemsg,setsinglemsg]=useState([]);
+   useEffect(()=>{
+      const singlechatRef = ref(db, 'activechat/');
+      onValue( singlechatRef, (snapshot) => {
+    
+      let arr= []
+      snapshot.forEach((item)=>{
+
+         if(item.val().whosendid == data.uid || item.val().whoReciveId == activeChat.active.id && item.val().whoReciveId == data.uid || item.val().whosendid == activeChat.active.id){
+            arr.push(item.val());
+         }
+        
+         
+         
+         
+          
+      })
+    setsinglemsg(arr)
+      });
+   },[])
+
+   console.log(singlemsg,'jtgfjgjtgeetjgte');
+   
+   
    return (
       <>
          <div className="w-full  rounded-custom shadow-homeCardShadow pl-12 pr-7 ">
@@ -35,7 +69,7 @@ const Chat = () => {
                      <img  className='w-[75px] h-[75px] rounded-full object-cover drop-shadow-navIconDropShadow' src={profile} alt="Ellipse2.png" />
                   </div>
                   <div className="ml-8">
-                     <h2 className="font-poppins text-2xl font-semibold">{active.active.name}</h2>
+                     <h2 className="font-poppins text-2xl font-semibold">{activeChat.active.name}</h2>
                      <p className="font-poppins text-sm text-[#000000D9]">Online</p>
                   </div>
                </div>
@@ -46,61 +80,82 @@ const Chat = () => {
             {/* recive messages */}
             <div className="row-span-9 pt-1.5 pb-2.5">
                <div className="h-[800px] overflow-y-scroll">
-                  <div className="mt-5">
+               {
+                  singlemsg.map((item)=>(
+                  item.whosendid== data.uid ?
+                  <div className="mt-2 text-right p-[20px]">
+                   <div className='relative'>
+                   <h4 className="bg-primary py-[20px] px-[52px] text-white inline-block font-pops font-bold">{item.msg}.</h4>
+                     <IoTriangle className='absolute bottom-[-10px] right-0 text-primary ' />
+                   </div>
+                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
+                  </div> :
+                  <div className="mt-2">
+                   <div className='relative'>
+                   <h4 className="bg-[#F1F1F1] py-[20px] px-[52px] inline-block font-pops font-bold">{item.msg}</h4>
+                     <IoTriangle className='absolute bottom-[-10px] left-0 text-[#F1F1F1] ' />
+                   </div>
+                     <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
+                  </div> 
+                  ))
+               }
+                  {/* <div className="mt-5">
                    <div className='relative'>
                    <h4 className="bg-[#F1F1F1] py-[20px] px-[52px] inline-block font-pops font-bold">Hello...</h4>
                      <IoTriangle className='absolute bottom-[-10px] left-0 text-[#F1F1F1] ' />
                    </div>
                      <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
-                  </div>
+                  </div> */}
               {/* recive messages */}
                      {/* sender message */}
-              <div className="mt-5 text-right p-[20px]">
+              {/* <div className="mt-5 text-right p-[20px]">
                    <div className='relative'>
                    <h4 className="bg-primary py-[20px] px-[52px] text-white inline-block font-pops font-bold">Hello...</h4>
                      <IoTriangle className='absolute bottom-[-10px] right-0 text-primary ' />
                    </div>
                      <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
-                  </div>
+                  </div> */}
               {/* sender message */}
 
               {/* reiver img */}
-              <div className="mt-5">
-                   <div className='p-3 bg-[#F1F1F1] inline-block'>
+              {/* <div className="mt-5">
+                   <div className='p-3 bg-[#F1F1F1] inline-block'> */}
                  
                     {/* <img src={img1} className='w-[250px]'></img> */}
-                    <ModalImage
+                    {/* <ModalImage
                    small={img1}
                   large={img1}
                   className='w-60'
                   />
                    </div>
                      <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
-                  </div>
+                  </div> */}
               {/* sender img */}
 
                       {/* reiver img */}
-                      <div className="mt-5 text-right p-[20px]">
-                   <div className='p-3 bg-primary inline-block'>
+                      {/* <div className="mt-5 text-right p-[20px]">
+                   <div className='p-3 bg-primary inline-block'> */}
                  
                     {/* <img src={img1} className='w-[250px]'></img> */}
-                    <ModalImage
+                    {/* <ModalImage
                    small={img1}
                   large={img1}
                   className='w-60'
                   />
                    </div>
                      <p className="font-poppins text-xs font-medium text-[#00000040] mt-2 select-none">Today, 2:13pm</p>
-                  </div>
+                  </div> */}
               {/*sender  img */}
                   
                
                
                </div>
             <div className='py-5 border-t-2 border-gray-500 rounded-lg'>
-              <div className=''>
-              <input onChange={(e)=> setMsg(e.target.value)} className='bg-[#F1F1F1] w-[650px] p-5 ' type='text'></input>
-              <button onClick={handleSendMsg} className='p-5 text-3xl text-primary' ><BsFillSendPlusFill  /></button>
+              <div className='flex'>
+              <input onChange={(e)=> setmsg(e.target.value)} className='bg-[#C0C0C0] w-[650px] p-5 focus:outline-0 rounded-md border-orange-200 font-serif font-bold ' type='text'></input>
+              <div>
+              <button onClick={hadleButton} className='p-5 text-3xl text-primary rounded-xl bg-slate-300 ml-1' ><BsFillSendPlusFill  /></button>
+              </div>
               </div>
             </div>
             </div>

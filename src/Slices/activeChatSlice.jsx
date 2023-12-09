@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    active:"fff"
+    active:"active"
 }
 
 export const activeChatSlice = createSlice({
@@ -19,6 +19,6 @@ export const activeChatSlice = createSlice({
 })
 
 
-export const {active } = activeChatSlice.actions
+export const {active} = activeChatSlice.actions
 
 export default activeChatSlice.reducer
