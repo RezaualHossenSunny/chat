@@ -37,9 +37,9 @@ const Home = () => {
   <div>
     {
       varify ?
-      <div className='flex gap-x-[100px] mt-[32px] '>
-      <div className='w-[187px] ml-[32px] '>
-  <Saidebar active='home'/>
+      <div className=' md:flex gap-x-[100px] mt-2 md:mt-[32px] '>
+      <div className='w-full md:w-[187px] md:ml-[32px] '>
+     <Saidebar active='home'/>
       </div>
       <div className='w-[427px]'>
         <Serch/>
