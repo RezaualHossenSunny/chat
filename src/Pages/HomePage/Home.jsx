@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useNavigation } from 'react-router-dom'
-import Saidebar from '../../Component/Saidebar/Saidebar'
+import Saidebar from '../../component/Saidebar/Saidebar'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Serch from '../../component/Saidebar/Serch/Serch';
 import Grouplist from '../../component/Saidebar/Grouplist/Grouplist';
